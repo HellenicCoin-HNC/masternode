@@ -250,57 +250,33 @@ Your masternode is now registered and will appear in the masternode list.
 
 You can check the status of your masternode using the command "masternode status". 
  
-
 helleniccoin-cli masternode status 
 
 Example output 
-
- 
-
+```
 { 
-
   "outpoint": "fdab9dff1ff9caf5d291905ad43b9f7d69775189d4d22cb085d7fedd94ea1c6a-0", 
-
   "service": "136.144.171.201:9999", 
-
   "proTxHash": "7da2e1187202a1a497beca05e0e53a6e4df0dc06046f72fbf8b61c942db2982a", 
-
   "collateralHash": "fdab9dff1ff9caf5d291905ad43b9f7d69775189d4d22cb085d7fedd94ea1c6a", 
-
   "collateralIndex": 0, 
-
   "dmnState": { 
-
     "service": "136.144.171.201:9999", 
-
     "registeredHeight": 145, 
-
     "lastPaidHeight": 0, 
-
     "PoSePenalty": 0, 
-
     "PoSeRevivedHeight": -1, 
-
     "PoSeBanHeight": -1, 
-
     "revocationReason": 0, 
-
     "ownerAddress": "TWXGVYPHGA4gWcZ9Zp2qnubFVNagvorwEN", 
-
     "votingAddress": "TSsrnbtJGYD1WmVsrsvauuwxibJyqkkqqL", 
-
     "payoutAddress": "TEXj9AgdCh1giGmr1BXpYsngmkMkthNngD", 
-
     "pubKeyOperator": "064bb1741f4707cfe3629176857c41e0d23cbe751061fe5d0d67b506db10c8f3f6f2b684c3cec8e4a128193a001d12e9" 
-
   }, 
-
   "state": "READY", 
-
   "status": "Ready" 
-
 } 
-
+```
  
 
  
