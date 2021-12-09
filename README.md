@@ -10,63 +10,42 @@ Make sure that you have the following requirements.
 
  
 
-Update your Ubuntu machine. 
-
-sudo apt-get update 
-sudo apt-get upgrade 
-
-Install the required dependencies. 
-
-sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev libboost-all-dev libboost-program-options-dev 
- 
-sudo apt-get install libminiupnpc-dev libzmq3-dev libprotobuf-dev protobuf-compiler unzip software-properties-common 
-
-Install Berkeley DB. 
-
-sudo add-apt-repository ppa:bitcoin/bitcoin 
- 
-sudo apt-get update 
- 
-sudo apt-get install libdb4.8-dev libdb4.8++-dev 
+Install the required dependencies 
+```
+  wget https://raw.githubusercontent.com/HellenicCoin-HNC/node/main/install-dependencies.sh
+  chmod +x install-dependencies.sh
+  ./install-dependencies.sh
+```
 
 Upload the daemon and tools  
-
+```
 wget "https://github.com/HellenicCoin-HNC/node/raw/main/helleniccoin-daemon-linux.tar.gz" -O helleniccoin-daemon-linux.tar.gz 
- 
 wget "https://github.com/HellenicCoin-HNC/node/raw/main/helleniccoin-qt-linux.tar.gz" -O helleniccoin-qt-linux.tar.gz 
-
-Extract the tar files. 
-
 tar -xzvf helleniccoin-daemon-linux.tar.gz 
- 
 tar -xzvf helleniccoin-qt-linux.tar.gz 
-
-Install the daemon and tools. 
-
 sudo mv helleniccoind helleniccoin-cli helleniccoin-tx /usr/bin/ 
+```
 
 Create the config file. 
-
-mkdir $HOME/.helleniccoin 
- 
-nano $HOME/.helleniccoin/helleniccoin.conf 
-
+```
+ mkdir $HOME/.helleniccoin 
+ nano $HOME/.helleniccoin/helleniccoin.conf 
+```
 Paste the following lines in helleniccoin.conf. 
-
-#---- 
+```
 rpcuser=rpc_helleniccoin 
 rpcpassword=kuw05sqio7bcm8z96o7redv17xws1lw6xpd1qf33 
 rpcallowip=127.0.0.1 
-#---- 
+
 listen=1 
 server=1 
 daemon=1 
 maxconnections=64 
-#---- 
+
 #masternode=1 
 #masternodeblsprivkey= 
 externalip=REPLACE_WITH_EXTERNAL_IP_OF_VPS 
-#---- 
+```
 
 Leave the fields “masternode” and “masternodeblsprivkey” commented out. 
 
@@ -84,28 +63,17 @@ Wait until the command “mnsync status” returns the status “MASTERNODE_SYNC
 helleniccoin-cli mnsync status 
 
 Example output 
-
- 
-
+```
 { 
-
   "AssetID": 999, 
-
   "AssetName": "MASTERNODE_SYNC_FINISHED", 
-
   "AssetStartTime": 1558596597, 
-
   "Attempt": 0, 
-
   "IsBlockchainSynced": true, 
-
   "IsSynced": true, 
-
   "IsFailed": false 
-
 } 
-
- 
+```
 
 Send the collateral 
 
@@ -114,19 +82,15 @@ Create a new address for the fee.
 helleniccoin-cli getnewaddress 
 
 Example output 
-
-THBSKbJgn7g2x3PAbNuW6whkecqrq9aUn6 
+ `THBSKbJgn7g2x3PAbNuW6whkecqrq9aUn6`
 
 Send 1 coin to the address that you just created. 
 
- 
 Create a new address for the masternode collateral. 
 
 helleniccoin-cli getnewaddress 
 
-Example output 
-
-TRPLV4dXmEFMSgXg2Xu6skN9pmw8TAo4N5 
+Example output `TRPLV4dXmEFMSgXg2Xu6skN9pmw8TAo4N5`
 
 Transfer the required amount of coins (1000000) to the address that you just created.  
 Wait until the transaction has the required masternode confirmations.(19) 
@@ -136,15 +100,11 @@ Identify the funding transaction.
 helleniccoin-cli masternode outputs 
 
 Example output 
-
- 
-
+```
 { 
-
   "fdab9dff1ff9caf5d291905ad43b9f7d69775189d4d22cb085d7fedd94ea1c6a": "0" 
-
 } 
-
+```
  
 
 Register your masternode 
@@ -154,25 +114,17 @@ Generate a BLS key pair.
 helleniccoin-cli bls generate 
 
 Example output 
-
- 
-
+```
 bls generate 
-
 { 
-
   "secret": "0acbf6f183d0c9b794b9bc0dba25f8a1a1eca21aa4f2e4a86ecd3120a59efb35", 
-
   "public": "064bb1741f4707cfe3629176857c41e0d23cbe751061fe5d0d67b506db10c8f3f6f2b684c3cec8e4a128193a001d12e9" 
-
 } 
-
+```
  
-
 Place the secret key in the config file of your masternode and uncomment (delete #) the values “masternode” and “masternodeblsprivkey”. 
-
 Example config 
-
+```
 #---- 
 rpcuser=rpc_helleniccoin 
 rpcpassword=kuw05sqio7bcm8z96o7redv17xws1lw6xpd1qf33 
@@ -187,17 +139,15 @@ masternode=1
 masternodeblsprivkey=0acbf6f183d0c9b794b9bc0dba25f8a1a1eca21aa4f2e4a86ecd3120a59efb35 
 externalip=136.144.171.201 
 #---- 
+```
 
 Restart your masternode using the following commands. 
 
 helleniccoin-cli stop 
 helleniccoind 
  
-
 Prepare a ProRegTx transaction 
-
 Create a new address for the owner. 
-
 helleniccoin-cli getnewaddress 
 
 Example output 
